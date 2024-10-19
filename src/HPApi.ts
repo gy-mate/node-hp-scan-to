@@ -65,6 +65,14 @@ export default class HPApi {
     if (request.timeout === 0) {
       request.timeout = 100_000;
     }
+
+   if (!request.headers) {
+     request.headers = {};
+   }
+   if (!request.headers.Accept) {
+     request.headers.Accept = "application/xml, text/xml;q=0.9";
+   }
+
     HPApi.logDebug(callCount, true, request);
     try {
       const response = await axios(request);
@@ -497,6 +505,9 @@ export default class HPApi {
       baseURL: `http://${printerIP}:8080`,
       url: binaryURL,
       method: "GET",
+      headers: {
+        Accept : '*/*'
+      },
       responseType: "stream",
     });
 
